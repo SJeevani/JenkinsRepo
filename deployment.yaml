@@ -16,13 +16,6 @@ spec:
       containers:
         - name: sms
           image: sms-img:latest
-          imagePullPolicy: Never # IMPORTANT: use local image
-          resources:
-            requests:
-              cpu: "100m"
-              memory: "128Mi"
-            limits:
-              cpu: "250m"
-              memory: "256Mi"
+          imagePullPolicy: Never
           ports:
             - containerPort: 8100
