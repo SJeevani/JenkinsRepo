@@ -15,28 +15,25 @@ pipeline {
             }
         }
 
-        stage('Run Container'){
-        steps {
-                bat "docker run -d -p 8100:8100 --name sms_container sms-img:latest"
-            }
-        }
-
-//         stage('K8s Deployment') {
-//             steps {
-//                 script {
-//                     withEnv(["KUBECONFIG=C:/Users/pvssv/.kube/config"]) {
-//
-//                         echo "Applying Kubernetes manifests..."
-//
-//                         bat "kubectl apply -f namespace.yaml --validate=false"
-//                         bat "kubectl apply -f deployment.yaml --validate=false"
-//                         bat "kubectl apply -f service.yaml --validate=false"
-//
-//                         bat "kubectl rollout status deployment/sms-deployment -n sms-namespace"
-//                     }
-//                 }
+//         stage('Run Container'){
+//         steps {
+//                 bat "docker run -d -p 8100:8100 --name sms_container sms-img:latest"
 //             }
 //         }
+
+        stage('K8s Deployment') {
+            steps {
+                script {
+                    withEnv(["KUBECONFIG=C:/Users/sabbi/.kube/config"]) {
+
+                        bat "kubectl apply -f namespace.yaml --validate=false"
+                        bat "kubectl apply -f deployment.yaml --validate=false"
+                        bat "kubectl apply -f service.yaml --validate=false"
+
+                    }
+                }
+            }
+        }
     }
 
     post {
